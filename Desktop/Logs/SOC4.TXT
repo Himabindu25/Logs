@@ -1,0 +1,305 @@
+1                         J E S 2  J O B  L O G  --  S Y S T E M  M V S 1  --  N
+0
+ 07.02.26 JOB04390 ---- MONDAY,    06 APR 2020 ----
+ 07.02.26 JOB04390  IRR010I  USERID MINDT01  IS ASSIGNED TO THIS JOB.
+ 07.02.26 JOB04390  IEF677I WARNING MESSAGE(S) FOR JOB MINDT01C ISSUED
+ 07.02.26 JOB04390  ICH70001I MINDT01  LAST ACCESS AT 07:01:11 ON MONDAY, APRIL
+ 07.02.26 JOB04390  $HASP373 MINDT01C STARTED - INIT 1    - CLASS A        - SYS
+ 07.02.26 JOB04390  IEF403I MINDT01C - STARTED - TIME=07.02.26
+ 07.02.27 JOB04390  -                                                --TIMINGS (
+ 07.02.27 JOB04390  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP   CONN    TCB    SR
+ 07.02.27 JOB04390  -MINDT01C COBCL    COBOL       12    316     63 551177    .0
+ 07.02.27 JOB04390  -MINDT01C COBCL    LKED     FLUSH      0      0 551177    .0
+ 07.02.27 JOB04390  IEF404I MINDT01C - ENDED - TIME=07.02.27
+ 07.02.27 JOB04390  -MINDT01C ENDED.  NAME-MAINTEC              TOTAL TCB CPU TI
+ 07.02.27 JOB04390  $HASP395 MINDT01C ENDED
+0------ JES2 JOB STATISTICS ------
+-  06 APR 2020 JOB EXECUTION DATE
+-           10 CARDS READ
+-          305 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           17 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //MINDT01C JOB 43312,'MAINTEC',
+           //        CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1),
+           //        NOTIFY=&SYSUID
+           IEFC653I SUBSTITUTION JCL - 43312,'MAINTEC',CLASS=A,MSGCLASS=H,MSGLEV
+         2 //JOBPROC JCLLIB ORDER=IBMUSER.COMPILER.JCLS
+         3 //COBCL EXEC IGYWCL,
+           //          PGMLIB=IBMUSER.LOAD.LIB,   --> LOADLIB NAME
+           //          COPYLIB=IBMUSER.COPY.LIB,          --> COPYLIB NAME
+           //          GOPGM=SOC4                          --> MEMBER NAME
+         4 XXIGYWCL   PROC SRCLIB=,
+           XX         GOPGM=,
+           XX         COPYLIB=IBMUSER.COPY.LIB,
+           XX         PGMLIB=,
+           XX         REG=4096K,
+           XX         LNKPARM='XREF',
+           XX         WORK=SYSDA
+           XX*
+           XX*******************************************************************
+           XX***THIS IS COMPILATION STEP                           *************
+           XX*******************************************************************
+         5 XXCOBOL    EXEC PGM=IGYCRCTL,REGION=&REG,
+           XX         PARM='RES,LIB,LIST,OBJECT,APOST,TEST(ALL,SYM,SEPARATE)'
+           XX*        PARM='LIB,LIST,OBJECT,APOST'
+           XX*STEPLIB  DD  DSN=IGY.V5R2M0.SIGYCOMP,DISP=SHR
+           IEFC653I SUBSTITUTION JCL - PGM=IGYCRCTL,REGION=4096K,PARM='RES,LIB,L
+         6 XXSTEPLIB  DD  DSN=IGY.SIGYCOMP,DISP=SHR
+         7 XXSYSLIB   DD  DSN=&COPYLIB,DISP=SHR
+           IEFC653I SUBSTITUTION JCL - DSN=IBMUSER.COPY.LIB,DISP=SHR
+         8 XXSYSPRINT DD  SYSOUT=*
+         9 XXSYSDEBUG DD  DSN=IBMUSER.COB.DDIO,DISP=SHR
+        10 //COBOL.SYSIN DD DSN=MINDT01.BINDU.TASK(SOC4),DISP=SHR    -->SRC
+           X/SYSIN    DD  DSN=&SRCLIB(&GOPGM),DISP=SHR
+           IEFC653I SUBSTITUTION JCL - DSN=(SOC4),DISP=SHR
+        11 XXSYSLIN   DD  DSN=&&LOADSET,DISP=(MOD,PASS),
+           XX             UNIT=&WORK,SPACE=(80,(250,100))
+           IEFC653I SUBSTITUTION JCL - DSN=&&LOADSET,DISP=(MOD,PASS),UNIT=SYSDA,
+        12 XXSYSUT1   DD  UNIT=&WORK,SPACE=(460,(350,100))
+           IEFC653I SUBSTITUTION JCL - UNIT=SYSDA,SPACE=(460,(350,100))
+        13 XXSYSUT2   DD  UNIT=&WORK,SPACE=(460,(350,100))
+           IEFC653I SUBSTITUTION JCL - UNIT=SYSDA,SPACE=(460,(350,100))
+        14 XXSYSUT3   DD  UNIT=&WORK,SPACE=(460,(350,100))
+           IEFC653I SUBSTITUTION JCL - UNIT=SYSDA,SPACE=(460,(350,100))
+        15 XXSYSUT4   DD  UNIT=&WORK,SPACE=(460,(350,100))
+           IEFC653I SUBSTITUTION JCL - UNIT=SYSDA,SPACE=(460,(350,100))
+        16 XXSYSUT5   DD  UNIT=&WORK,SPACE=(460,(350,100))
+           IEFC653I SUBSTITUTION JCL - UNIT=SYSDA,SPACE=(460,(350,100))
+        17 XXSYSUT6   DD  UNIT=&WORK,SPACE=(460,(350,100))
+           IEFC653I SUBSTITUTION JCL - UNIT=SYSDA,SPACE=(460,(350,100))
+        18 XXSYSUT7   DD  UNIT=&WORK,SPACE=(460,(350,100))
+           XX*
+           XX*******************************************************************
+           XX***      LINK EDIT STEP             *******************************
+           XX*******************************************************************
+           XX*LINK-EDIT STEP
+           XX*
+           IEFC653I SUBSTITUTION JCL - UNIT=SYSDA,SPACE=(460,(350,100))
+        19 XXLKED     EXEC PGM=IEWL,REGION=&REG,
+           XX         PARM=&LNKPARM,COND=(5,LT)
+           IEFC653I SUBSTITUTION JCL - PGM=IEWL,REGION=4096K,PARM=XREF,COND=(5,L
+        20 XXSYSLIB   DD  DSN=CEE.SCEELKED,DISP=SHR
+           XX*SYSLIB   DD  DSN=SYS1.LINKLIB,DISP=SHR
+           XX*
+        21 XXSYSLMOD  DD  DSN=&PGMLIB(&GOPGM),DISP=SHR
+           IEFC653I SUBSTITUTION JCL - DSN=IBMUSER.LOAD.LIB(SOC4),DISP=SHR
+        22 XXSYSUT1   DD  UNIT=&WORK,DCB=BLKSIZE=1024,
+           XX             SPACE=(1024,(200,20))
+           IEFC653I SUBSTITUTION JCL - UNIT=SYSDA,DCB=BLKSIZE=1024,SPACE=(1024,(
+        23 XXSYSPRINT DD  SYSOUT=*
+        24 XXSYSLIN   DD  DSN=&&LOADSET,DISP=(OLD,DELETE)
+           XX*        DD  DSN=CICSVS.COBLIB(LINKDB2),DISP=SHR
+        25 XX         DD  DDNAME=SYSIN
+        26 XX         PEND
+           XX*******************************************************************
+           XX**  MAKE CHANGES HERE ONLY   **************************************
+           XX**  SRCLIB IS YOUR COBOL SOURCE LIBRARY  **************************
+           XX**  GOPGM IS THE PARAMETER TO SPECIFY THE MEMBER OF SRCLIB ********
+           XX**  PGMLIB IS THE LOAD LIBRARY WHERE UR EXECUTABLE MODULE IS   ****
+           XX**  PLACED  ********************************************
+           XX*******************************************************************
+           //*
+  STMT NO. MESSAGE
+         3 IEFC001I PROCEDURE IGYWCL WAS EXPANDED USING PRIVATE LIBRARY IBMUSER.
+        25 IEF686I DDNAME REFERRED TO ON DDNAME KEYWORD IN PRIOR STEP WAS NOT RE
+ ICH70001I MINDT01  LAST ACCESS AT 07:01:11 ON MONDAY, APRIL 6, 2020
+ IEF236I ALLOC. FOR MINDT01C COBOL COBCL
+ IEF237I 5050 ALLOCATED TO STEPLIB
+ IEF237I 5081 ALLOCATED TO SYSLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I 5081 ALLOCATED TO SYSDEBUG
+ IEF237I 5076 ALLOCATED TO SYSIN
+ IGD100I 50A0 ALLOCATED TO DDNAME SYSLIN   DATACLAS (        )
+ IGD100I 5075 ALLOCATED TO DDNAME SYSUT1   DATACLAS (        )
+ IGD100I 508B ALLOCATED TO DDNAME SYSUT2   DATACLAS (        )
+ IGD100I 5089 ALLOCATED TO DDNAME SYSUT3   DATACLAS (        )
+ IGD100I 5088 ALLOCATED TO DDNAME SYSUT4   DATACLAS (        )
+ IGD100I 50A6 ALLOCATED TO DDNAME SYSUT5   DATACLAS (        )
+ IGD100I 5086 ALLOCATED TO DDNAME SYSUT6   DATACLAS (        )
+ IGD100I 508C ALLOCATED TO DDNAME SYSUT7   DATACLAS (        )
+ IEF142I MINDT01C COBOL COBCL - STEP WAS EXECUTED - COND CODE 0012
+ IEF285I   IGY.SIGYCOMP                                 KEPT
+ IEF285I   VOL SER NOS= RES210.
+ IEF285I   IBMUSER.COPY.LIB                             KEPT
+ IEF285I   VOL SER NOS= USER01.
+ IEF285I   MINDT01.MINDT01C.JOB04390.D0000101.?         SYSOUT
+ IEF285I   IBMUSER.COB.DDIO                             KEPT
+ IEF285I   VOL SER NOS= USER01.
+ IEF285I   MINDT01.BINDU.TASK                           KEPT
+ IEF285I   VOL SER NOS= USER10.
+ IEF285I   SYS20097.T070226.RA000.MINDT01C.LOADSET.H01  PASSED
+ IEF285I   VOL SER NOS= USER02.
+ IEF285I   SYS20097.T070226.RA000.MINDT01C.R0115642     DELETED
+ IEF285I   VOL SER NOS= USER11.
+ IEF285I   SYS20097.T070226.RA000.MINDT01C.R0115643     DELETED
+ IEF285I   VOL SER NOS= USER06.
+ IEF285I   SYS20097.T070226.RA000.MINDT01C.R0115644     DELETED
+ IEF285I   VOL SER NOS= USER08.
+ IEF285I   SYS20097.T070226.RA000.MINDT01C.R0115645     DELETED
+ IEF285I   VOL SER NOS= USER07.
+ IEF285I   SYS20097.T070226.RA000.MINDT01C.R0115646     DELETED
+ IEF285I   VOL SER NOS= USER04.
+ IEF285I   SYS20097.T070226.RA000.MINDT01C.R0115647     DELETED
+ IEF285I   VOL SER NOS= USER09.
+ IEF285I   SYS20097.T070226.RA000.MINDT01C.R0115648     DELETED
+ IEF285I   VOL SER NOS= USER12.
+ IEF373I STEP/COBOL   /START 2020097.0702
+ IEF032I STEP/COBOL   /STOP  2020097.0702
+         CPU:     0 HR  00 MIN  00.05 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+         VIRT:  4096K  SYS:   284K  EXT:    32724K  SYS:    11996K
+         ATB- REAL:                    20K  SLOTS:                     0K
+              VIRT- ALLOC:       4M SHRD:       0M
+ IEF202I MINDT01C LKED COBCL - STEP WAS NOT RUN BECAUSE OF CONDITION CODES
+ IEF272I MINDT01C LKED COBCL - STEP WAS NOT EXECUTED.
+ IEF373I STEP/LKED    /START 2020097.0702
+ IEF032I STEP/LKED    /STOP  2020097.0702
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+         VIRT:     0K  SYS:     0K  EXT:        0K  SYS:        0K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       4M SHRD:       0M
+ IEF237I 50A0 ALLOCATED TO SYS00001
+ IEF285I   SYS20097.T070227.RA000.MINDT01C.R0115650     KEPT
+ IEF285I   VOL SER NOS= USER02.
+ IEF285I   SYS20097.T070226.RA000.MINDT01C.LOADSET.H01  DELETED
+ IEF285I   VOL SER NOS= USER02.
+ IEF375I  JOB/MINDT01C/START 2020097.0702
+ IEF033I  JOB/MINDT01C/STOP  2020097.0702
+         CPU:     0 HR  00 MIN  00.05 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+1PP 5655-S71 IBM Enterprise COBOL for z/OS  4.2.0                         Date 0
+0Invocation parameters:
+  RES,LIB,LIST,OBJECT,APOST,TEST(ALL,SYM,SEPARATE)
+
+         IGYOS4046-I   The "RESIDENT" option specification is no longer required
+                       used.
+
+
+         IGYOS4069-I   Some suboptions specified in "TEST(ALL,SYM,SEPARATE)" are
+                       were interpreted as "HOOK" and the "NONE" suboption was i
+                       longer required, "SYM" suboption behavior is always in ef
+
+0Options in effect:
+  NOADATA
+    ADV
+    APOST
+    ARITH(COMPAT)
+  NOAWO
+  NOBLOCK0
+    BUFSIZE(4096)
+  NOCICS
+    CODEPAGE(1140)
+  NOCOMPILE(S)
+  NOCURRENCY
+    DATA(31)
+  NODATEPROC
+    DBCS
+  NODECK
+  NODIAGTRUNC
+  NODLL
+  NODUMP
+  NODYNAM
+  NOEXIT
+  NOEXPORTALL
+  NOFASTSRT
+    FLAG(I,I)
+  NOFLAGSTD
+    INTDATE(ANSI)
+    LANGUAGE(EN)
+    LIB
+    LINECOUNT(60)
+    LIST
+  NOMAP
+  NOMDECK
+  NONAME
+    NSYMBOL(NATIONAL)
+  NONUMBER
+    NUMPROC(NOPFD)
+    OBJECT
+  NOOFFSET
+  NOOPTIMIZE
+    OUTDD(SYSOUT)
+    PGMNAME(COMPAT)
+    RENT
+    RMODE(AUTO)
+    SEQUENCE
+    SIZE(MAX)
+    SOURCE
+1PP 5655-S71 IBM Enterprise COBOL for z/OS  4.2.0                         Date 0
+0   SPACE(1)
+  NOSQL
+    SQLCCSID
+  NOSSRANGE
+  NOTERM
+    TEST(HOOK,SEPARATE,NOEJPD)
+  NOTHREAD
+    TRUNC(STD)
+  NOVBREF
+  NOWORD
+    XMLPARSE(XMLSS)
+    XREF(FULL)
+    YEARWINDOW(1900)
+    ZWB
+1PP 5655-S71 IBM Enterprise COBOL for z/OS  4.2.0               SOC4      Date 0
+   LineID  PL SL  ----+-*A-1-B--+----2----+----3----+----4----+----5----+----6--
+0/* SOC4
+   000001                IDENTIFICATION DIVISION.
+   000002                PROGRAM-ID. SOC4.
+   000003               ***********************************
+   000004               *
+   000005               ***********************************
+   000006                DATA DIVISION.
+   000007                WORKING-STORAGE SECTION.
+   000008                01 WS-A.
+   000009                   02 WS-B PIC X(1) OCCURS 5 TIMES INDEXED BY I.
+   000010
+   000011                PROCEDURE DIVISION.
+   000012                    MOVE 'HIMABINDU' TO WS-A.
+   000013                    DISPLAY WS-A.
+   000014                    PERFORM A-PARA VARYING I FROM 1 BY 1 UNTIL I > 9.
+   000015                    STOP RUN.
+   000016
+   000017                  A-PARA.
+   000018                    DISPLAY WS-A(I).
+
+ ==000018==> IGYPS2120-S Expected a reference-modification specification but fou
+                         "DISPLAY" statement was discarded.
+
+ */ SOC4
+1PP 5655-S71 IBM Enterprise COBOL for z/OS  4.2.0               SOC4      Date 0
+0An "M" preceding a data-name reference indicates that the data-name is modified
+
+  Defined   Cross-reference of data names   References
+
+        9   I. . . . . . . . . . . . . . .  M14 14 18
+        8   WS-A . . . . . . . . . . . . .  M12 13 18
+        9   WS-B
+1PP 5655-S71 IBM Enterprise COBOL for z/OS  4.2.0               SOC4      Date 0
+0Context usage is indicated by the letter preceding a procedure-name reference.
+ These letters and their meanings are:
+     A = ALTER (procedure-name)
+     D = GO TO (procedure-name) DEPENDING ON
+     E = End of range of (PERFORM) through (procedure-name)
+     G = GO TO (procedure-name)
+     P = PERFORM (procedure-name)
+     T = (ALTER) TO PROCEED TO (procedure-name)
+     U = USE FOR DEBUGGING (procedure-name)
+
+  Defined   Cross-reference of procedures   References
+
+       17   A-PARA . . . . . . . . . . . .  P14
+1PP 5655-S71 IBM Enterprise COBOL for z/OS  4.2.0               SOC4      Date 0
+0 Defined   Cross-reference of programs     References
+
+        2   SOC4
+1PP 5655-S71 IBM Enterprise COBOL for z/OS  4.2.0               SOC4      Date 0
+0LineID  Message code  Message text
+
+     18  IGYPS2120-S   Expected a reference-modification specification but found
+-Messages    Total    Informational    Warning    Error    Severe    Terminating
+0Printed:       3           2                                  1
+-* Statistics for COBOL program SOC4:
+ *    Source records = 18
+ *    Data Division statements = 2
+ *    Procedure Division statements = 5
+0End of compilation 1,  program SOC4,  highest severity 12.
+0Return code 12
